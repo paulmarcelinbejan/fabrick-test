@@ -11,17 +11,17 @@ Swagger:
 http://localhost:8080/swagger-ui/index.html#/fabrick-controller
 
 - GET http://localhost:8080/swagger-ui/index.html#/fabrick-controller/letturaSaldo
-  INPUT:
+  - INPUT:
     - accountId : 14537780
       
 - GET http://localhost:8080/swagger-ui/index.html#/fabrick-controller/listaTransazioni
-  INPUT:
+  - INPUT:
     - accountId : 14537780
     - fromAccountingDate : 2019-01-01
     - toAccountingDate : 2019-12-01
 
 - POST http://localhost:8080/swagger-ui/index.html#/fabrick-controller/effettuaBonifico
-  INPUT:
+  - INPUT:
     - accountId : 14537780
     - RequestBody :
 	{
