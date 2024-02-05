@@ -86,33 +86,33 @@ Proprietà/Costanti applicativo
 
 ### Operazione: Lettura saldo
 	API: https://docs.fabrick.com/platform/apis/gbs-banking-account-cash-v4.0
-- Input: {accountId}:Long è un parametro dell’applicazione;
-Output: Visualizzare il saldo
+- Input:
+	- {accountId}:Long è un parametro dell’applicazione;
+- Output:
+	- Visualizzare il saldo
 
 ### Operazione: Bonifico
 	API: https://docs.fabrick.com/platform/apis/gbs-banking-payments-moneyTransfers-v4.0
-Input (usare per valorizzare il json della chiamata):
-- {accountId}:Long è un parametro dell’applicazione;
-- {creditor.name}:String, è il beneficiario del bonifico;
-- {creditor.account.accountCode}:String, iban del beneficiario;
-- {description}: String, descrizione del bonifico
-- {currency}:String
-- {amount}:String 
-- {executionDate}:String YYYY-MM-DD
-
-Nota: fare riferimento alla documentazione e popolare tutti i campi required
-Output: Stato dell’operazione, il bonifico avrà esito KO per una limitazione del conto di prova. L’output atteso dovrà essere:
-
-"code": "API000",
-"description": "Errore tecnico  La condizione BP049 non e' prevista per il conto id 14537780"
+- Input (usare per valorizzare il json della chiamata):
+	- {accountId}:Long è un parametro dell’applicazione;
+	- {creditor.name}:String, è il beneficiario del bonifico;
+	- {creditor.account.accountCode}:String, iban del beneficiario;
+	- {description}: String, descrizione del bonifico
+	- {currency}:String
+	- {amount}:String 
+	- {executionDate}:String YYYY-MM-DD
+- Output:
+	- Stato dell’operazione, il bonifico avrà esito KO per una limitazione del conto di prova. L’output atteso dovrà essere:
+	- "code": "API000", "description": "Errore tecnico  La condizione BP049 non e' prevista per il conto id 14537780"
 
 ### Operazione: Lettura Transazioni
 	API: https://docs.fabrick.com/platform/apis/gbs-banking-account-cash-v4.0
-Input:
-- {accountId}:Long è un parametro dell’applicazione;
-- {fromAccountingDate}=2019-01-01
--	{toAccountingDate}=2019-12-01
-Output:  Lista delle transazioni, nelle date suggerite su esempio sono presenti movimenti.
+- Input:
+	- {accountId}:Long è un parametro dell’applicazione;
+	- {fromAccountingDate}=2019-01-01
+	- {toAccountingDate}=2019-12-01
+- Output:
+	- Lista delle transazioni, nelle date suggerite su esempio sono presenti movimenti.
 
 Tecnologie
 Il test deve essere svolto in Java. Si richiede l’uso di Spring + Spring Boot.
