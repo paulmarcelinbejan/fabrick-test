@@ -1,0 +1,5 @@
+{
+  "status" : "KO",
+  "errors" : [{"code":"GTW900","description":"Generic Error","params":""}],
+  "payload": {}
+}
