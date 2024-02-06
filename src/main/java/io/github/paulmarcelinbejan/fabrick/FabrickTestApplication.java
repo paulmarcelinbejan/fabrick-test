@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableFeignClients
 @EnableConfigurationProperties
-@ComponentScan({ "io.github.paulmarcelinbejan.fabrick*" })
+@ComponentScan({ "io.github.paulmarcelinbejan*" })
 public class FabrickTestApplication {
 
 	public static void main(String[] args) {

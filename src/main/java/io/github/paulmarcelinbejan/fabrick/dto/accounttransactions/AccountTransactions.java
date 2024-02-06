@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class AccountTransactions {
 
-	private List<Transactions> list;
+	private List<TransactionDto> list;
 
 }

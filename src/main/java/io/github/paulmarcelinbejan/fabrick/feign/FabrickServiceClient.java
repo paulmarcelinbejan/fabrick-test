@@ -13,24 +13,29 @@ import io.github.paulmarcelinbejan.fabrick.dto.accounttransactions.AccountTransa
 import io.github.paulmarcelinbejan.fabrick.dto.moneytransfer.request.MoneyTransferRequest;
 import io.github.paulmarcelinbejan.fabrick.dto.moneytransfer.response.MoneyTransferResponse;
 import io.github.paulmarcelinbejan.fabrick.feign.config.FabrickClientConfig;
+import io.github.paulmarcelinbejan.toolbox.utils.log.audit.Audit;
+import io.github.paulmarcelinbejan.toolbox.utils.log.duration.TimeExecution;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @FeignClient(name = "fabrickServiceClient", configuration = FabrickClientConfig.class)
 public interface FabrickServiceClient {
 
+	@Audit
+	@TimeExecution
 	@GetMapping(value = "${fabrick.api.get-account-balance}")
-	@ResponseBody
-	FabrickApiResponse<AccountBalance> getAccountBalance(@PathVariable("accountId") String accountId);
+	@ResponseBody FabrickApiResponse<AccountBalance> getAccountBalance(@PathVariable("accountId") String accountId);
 
+	@Audit
+	@TimeExecution
 	@PostMapping(value = "${fabrick.api.create-money-transfer}")
-	@ResponseBody
-	FabrickApiResponse<MoneyTransferResponse> createMoneyTransfer(@RequestBody MoneyTransferRequest request,
+	@ResponseBody FabrickApiResponse<MoneyTransferResponse> createMoneyTransfer(@RequestBody MoneyTransferRequest request,
 			@PathVariable("accountId") String accountId);
 
+	@Audit
+	@TimeExecution
 	@GetMapping(value = "${fabrick.api.get-account-transactions}")
-	@ResponseBody
-	FabrickApiResponse<AccountTransactions> getAccountTransactions(
+	@ResponseBody FabrickApiResponse<AccountTransactions> getAccountTransactions(
 			@PathVariable("accountId") String accountId,
 			@RequestParam("fromAccountingDate") String fromAccountingDate,
 			@RequestParam("toAccountingDate") String toAccountingDate);

@@ -1,9 +1,29 @@
 spring:
   application:
     name: fabrick-test
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+  h2:
+    console:
+      enabled: true
+      settings.web-allow-others: false
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: paulmarcelinbejan
+    password: passwordDB
+    driverClassName: org.h2.Driver
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        jdbc:
+          time_zone: Europe/Rome
+        format_sql: true
+      show-sql: true
   cloud:
     openfeign:
       client:
@@ -12,16 +32,22 @@ spring:
             url: ${fabrick.base-url}
             connectTimeout: 20000
             readTimeout: 20000
-            loggerLevel: FULL
+            loggerLevel: BASIC
             defaultRequestHeaders:
               auth-schema: S2S
               api-key: FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP
               x-time-zone: Europe/Rome
 
+logging:
+  level:
+    root: INFO
+    io.github.paulmarcelinbejan.toolbox.utils.log.audit: DEBUG
+    io.github.paulmarcelinbejan.toolbox.utils.log.duration: TRACE
+
 springdoc:
-   pathsToMatch: /**
-   swagger-ui:
-      path: /swagger-ui.html
+  pathsToMatch: /**
+  swagger-ui:
+    path: /swagger-ui.html
 
 fabrick:
   base-url: https://sandbox.platfr.io

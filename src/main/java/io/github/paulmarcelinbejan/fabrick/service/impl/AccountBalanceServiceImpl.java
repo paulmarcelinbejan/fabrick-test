@@ -1,14 +1,15 @@
 package io.github.paulmarcelinbejan.fabrick.service.impl;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.paulmarcelinbejan.fabrick.dto.FabrickApiResponse;
 import io.github.paulmarcelinbejan.fabrick.dto.accountbalance.AccountBalance;
-import io.github.paulmarcelinbejan.fabrick.exception.FabrickException;
 import io.github.paulmarcelinbejan.fabrick.feign.FabrickServiceClient;
 import io.github.paulmarcelinbejan.fabrick.service.AccountBalanceService;
+import io.github.paulmarcelinbejan.fabrick.utility.FabrickUtils;
+import io.github.paulmarcelinbejan.toolbox.utils.log.audit.Audit;
+import io.github.paulmarcelinbejan.toolbox.utils.log.duration.TimeExecution;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -30,6 +31,8 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 	private final String url;
 	
 	@Override
+	@Audit
+	@TimeExecution
 	public AccountBalance getAccountBalance(String accountId) {
 		
 		log.info(" -> sending request to {} for accountId {}", url, accountId);
@@ -38,12 +41,8 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 		
 		log.info(" <- response received from {} for accountId {}", url, accountId);
 		
-		if (accountBalance == null) {
-			throw new FabrickException("Received unexpected response from " + url);
-		}
-		if (StringUtils.equals(accountBalance.getStatus(), "KO")) {
-			throw new FabrickException("KO from " + url + " with following errors: " + accountBalance.getError());
-		}
+		FabrickUtils.throwFabrickExceptionForUnexpectedApiResponse(url, accountBalance);
+		FabrickUtils.throwFabrickExceptionForKO(url, accountBalance);
 		
 		return accountBalance.getPayload();
 

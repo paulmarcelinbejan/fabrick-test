@@ -2,10 +2,12 @@ package io.github.paulmarcelinbejan.fabrick.dto.accounttransactions;
 
 import java.math.BigDecimal;
 
+import io.github.paulmarcelinbejan.fabrick.enumeration.GBS_TRANSACTION_TYPE;
+
 import lombok.Data;
 
 @Data
-public class Transactions {
+public class TransactionDto {
 
 	private String transactionId;
 
@@ -15,18 +17,12 @@ public class Transactions {
 
 	private String valueDate;
 
-	private Type type;
+	private GBS_TRANSACTION_TYPE type;
 
 	private BigDecimal amount;
 
 	private String currency;
 
 	private String description;
-
-	@Data
-	public static class Type {
-		private String enumeration;
-		private String value;
-	}
 
 }
