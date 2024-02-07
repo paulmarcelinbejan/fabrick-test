@@ -32,21 +32,7 @@ public class FabrickExceptionController {
 
 		return new FabrickExceptionResponse(httpStatus, exception, "FeignException");
 	}
-
-	@ResponseBody
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(value = { ValidationException.class })
-	public FabrickExceptionResponse handleValidationException(ValidationException exception) {
-		return new FabrickExceptionResponse(HttpStatus.BAD_REQUEST, exception);
-	}
-
-	@ResponseBody
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(value = { ConstraintViolationException.class })
-	public FabrickExceptionResponse handleConstraintViolationException(ConstraintViolationException exception) {
-		return new FabrickExceptionResponse(HttpStatus.BAD_REQUEST, exception);
-	}
-
+	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = { MethodArgumentNotValidException.class })
@@ -55,13 +41,13 @@ public class FabrickExceptionController {
 				HttpStatus.BAD_REQUEST, 
 				exception, 
 				exception.getClass().getSimpleName(),
-				getValidExceptionMessage(exception));
+				getPrettyMethodArgumentNotValidExceptionMessage(exception));
 	}
 
 	@ResponseBody
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(value = { IllegalArgumentException.class })
-	public FabrickExceptionResponse handleIllegalArgumentException(IllegalArgumentException exception) {
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value = { ValidationException.class, ConstraintViolationException.class, IllegalArgumentException.class })
+	public FabrickExceptionResponse handleBadRequest(RuntimeException exception) {
 		return new FabrickExceptionResponse(HttpStatus.BAD_REQUEST, exception);
 	}
 
@@ -79,7 +65,7 @@ public class FabrickExceptionController {
 		return new FabrickExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, exception);
 	}
 	
-	private String getValidExceptionMessage(MethodArgumentNotValidException exception) {
+	private String getPrettyMethodArgumentNotValidExceptionMessage(MethodArgumentNotValidException exception) {
 		return exception.getAllErrors().stream().map(ObjectError::getDefaultMessage).toList().toString();
 	}
 

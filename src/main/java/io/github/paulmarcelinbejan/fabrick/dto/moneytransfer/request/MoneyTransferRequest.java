@@ -44,6 +44,7 @@ public class MoneyTransferRequest {
 
 	private String feeAccountId;
 
+	// TODO Italy only, based on what? creditor Address ? creditor IBAN ?
 	@Valid
 	private TaxRelief taxRelief;
 

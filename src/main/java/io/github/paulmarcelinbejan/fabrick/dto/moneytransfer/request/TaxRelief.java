@@ -5,17 +5,30 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-import io.github.paulmarcelinbejan.fabrick.dto.moneytransfer.validator.LegalPersonBeneficiaryValidation;
-import io.github.paulmarcelinbejan.fabrick.dto.moneytransfer.validator.NaturalPersonBeneficiaryValidation;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.constraint.ConditionalValidation;
 
 import lombok.Data;
 
 @Data
-@NaturalPersonBeneficiaryValidation
-@LegalPersonBeneficiaryValidation
+@ConditionalValidation(
+        conditionalProperty = "beneficiaryType", conditionalValues = {"NATURAL_PERSON"},
+        propertyToValidate = "naturalPersonBeneficiary", required = true,
+		message = "taxRelief.naturalPersonBeneficiary is required when taxRelief.beneficiaryType is NATURAL_PERSON")
+@ConditionalValidation(
+        conditionalProperty = "beneficiaryType", conditionalValues = {"NATURAL_PERSON"},
+        propertyToValidate = "legalPersonBeneficiary", required = false,
+		message = "taxRelief.legalPersonBeneficiary must be null when taxRelief.beneficiaryType is NATURAL_PERSON")
+@ConditionalValidation(
+        conditionalProperty = "beneficiaryType", conditionalValues = {"LEGAL_PERSON"},
+        propertyToValidate = "legalPersonBeneficiary", required = true,
+		message = "taxRelief.legalPersonBeneficiary is required when taxRelief.beneficiaryType is LEGAL_PERSON")
+@ConditionalValidation(
+        conditionalProperty = "beneficiaryType", conditionalValues = {"LEGAL_PERSON"},
+        propertyToValidate = "naturalPersonBeneficiary", required = false,
+		message = "taxRelief.naturalPersonBeneficiary must be null when taxRelief.beneficiaryType is LEGAL_PERSON")
 public class TaxRelief {
 
-	@Pattern(regexp = "^(119R|DL50|L296|L449|L234)?$", message = "Invalid taxReliefId. Valid values are '119R', 'DL50', 'L296', 'L449', 'L234'.")
+	@Pattern(regexp = "^(119R|DL50|L296|L449|L234)?$", message = "Invalid taxRelief.taxReliefId. Valid values are '119R', 'DL50', 'L296', 'L449', 'L234'.")
 	private String taxReliefId;
 
 	@NotNull(message = "taxRelief.isCondoUpgrade must not be null!")
@@ -26,7 +39,7 @@ public class TaxRelief {
 	private String creditorFiscalCode;
 
 	@NotBlank(message = "taxRelief.beneficiaryType must not be blank!")
-	@Pattern(regexp = "^(NATURAL_PERSON|LEGAL_PERSON)?$", message = "Invalid beneficiaryType. Valid values are 'NATURAL_PERSON' or 'LEGAL_PERSON'.")
+	@Pattern(regexp = "^(NATURAL_PERSON|LEGAL_PERSON)?$", message = "Invalid taxRelief.beneficiaryType. Valid values are 'NATURAL_PERSON' or 'LEGAL_PERSON'.")
 	private String beneficiaryType;
 
 	@Valid
