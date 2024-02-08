@@ -1,0 +1,5 @@
+{
+  "status" : "KO",
+  "errors" : [{"code":"REQ017","description":"Invalid date format","params":""}],
+  "payload": {}
+}

@@ -11,9 +11,15 @@ import jakarta.persistence.Table;
 
 import io.github.paulmarcelinbejan.fabrick.enumeration.GBS_TRANSACTION_TYPE;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TRANSACTION")
 public class Transaction {

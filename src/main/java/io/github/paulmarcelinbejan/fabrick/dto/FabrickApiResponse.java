@@ -9,7 +9,7 @@ public class FabrickApiResponse<T> {
 
 	private String status;
 
-	private List<ErrorDetail> error;
+	private List<ErrorDetail> errors;
 
 	private T payload;
 

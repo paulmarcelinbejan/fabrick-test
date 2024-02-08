@@ -19,7 +19,7 @@ public class FabrickUtils {
 	
 	public static <RESPONSE extends FabrickApiResponse<?>> void throwFabrickExceptionForKO(String url, RESPONSE response) {
 		if (StringUtils.equals(response.getStatus(), "KO")) {
-			throw new FabrickException("KO from " + url + " with following errors: " + response.getError());
+			throw new FabrickException("KO from " + url + " with following errors: " + response.getErrors());
 		}
 	}
 

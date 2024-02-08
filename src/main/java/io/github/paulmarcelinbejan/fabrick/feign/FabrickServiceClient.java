@@ -1,6 +1,7 @@
 package io.github.paulmarcelinbejan.fabrick.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,18 +24,19 @@ public interface FabrickServiceClient {
 
 	@Audit
 	@TimeExecution
-	@GetMapping(value = "${fabrick.api.get-account-balance}")
+	@GetMapping(value = "${fabrick.api.get-account-balance}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody FabrickApiResponse<AccountBalance> getAccountBalance(@PathVariable("accountId") String accountId);
 
 	@Audit
 	@TimeExecution
-	@PostMapping(value = "${fabrick.api.create-money-transfer}")
-	@ResponseBody FabrickApiResponse<MoneyTransferResponse> createMoneyTransfer(@RequestBody MoneyTransferRequest request,
+	@PostMapping(value = "${fabrick.api.create-money-transfer}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody FabrickApiResponse<MoneyTransferResponse> createMoneyTransfer(
+			@RequestBody MoneyTransferRequest request,
 			@PathVariable("accountId") String accountId);
 
 	@Audit
 	@TimeExecution
-	@GetMapping(value = "${fabrick.api.get-account-transactions}")
+	@GetMapping(value = "${fabrick.api.get-account-transactions}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody FabrickApiResponse<AccountTransactions> getAccountTransactions(
 			@PathVariable("accountId") String accountId,
 			@RequestParam("fromAccountingDate") String fromAccountingDate,

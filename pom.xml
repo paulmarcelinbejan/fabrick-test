@@ -33,7 +33,7 @@
 		<!-- WIREMOCK -->
 		<wiremock.version>3.3.1</wiremock.version>
 		<!-- PAUL MARCELIN BEJAN TOOLBOX -->
-		<toolbox.version>1.0.2-SNAPSHOT</toolbox.version>
+		<toolbox.version>1.0.2</toolbox.version>
 	</properties>
 
 	<dependencyManagement>
@@ -76,14 +76,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--
-		<dependency>
-		    <groupId>org.wiremock</groupId>
-		    <artifactId>wiremock</artifactId>
-		    <version>${wiremock.version}</version>
-		    <scope>test</scope>
-		</dependency>
-		-->
 		
 		<!-- JAKARTA VALIDATION -->
 		<dependency>
