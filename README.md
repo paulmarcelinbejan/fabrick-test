@@ -1,10 +1,5 @@
 # fabrick-test
 
-## TODO
-1. tutta la parte di Test
-2. mancano alcune validazioni sui DTO di request che sono state segnate con il commento TODO
-3. sviluppo della scrittura su DB e storicizzazione dei movimenti ottenuti con la lista delle transazioni.
-
 ## API esposte:
 
 Swagger:
